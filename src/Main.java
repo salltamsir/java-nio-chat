@@ -3,7 +3,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        MyClasse myClasse = new MyClasse(256);
+        Server myClasse = new Server(256);
         myClasse.accept();
 
         //Handler handler = new Handler();

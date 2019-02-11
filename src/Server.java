@@ -7,7 +7,7 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.*;
 
-public class MyClasse {
+public class Server {
     private static final String POISON_PILL = "exit";
     Selector selector ;
     ServerSocketChannel serverSocket ;
@@ -17,7 +17,7 @@ public class MyClasse {
     TreeMap<String,ArrayList<SocketChannel>> salonList;
     Handler handler;
     ChatModel chatModel;
-    public MyClasse(int port) throws IOException {
+    public Server(int port) throws IOException {
 
         selector = Selector.open();serverSocket = ServerSocketChannel.open();
         serverSocket.bind(new InetSocketAddress("192.168.43.68", port));
