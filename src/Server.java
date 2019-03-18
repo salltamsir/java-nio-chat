@@ -33,6 +33,7 @@ public class Server {
 
     public void accept () throws IOException {
         while (true) {
+
             int test = selector.select();
             System.out.println(test+" clients");
             Set<SelectionKey> selectedKeys = selector.selectedKeys();
@@ -57,9 +58,16 @@ public class Server {
     private  void repeat(SelectionKey key) throws IOException {
 
         SocketChannel client = (SocketChannel) key.channel();
-        client.read(buffer);
+        int n = client.read(buffer);
+        if (n<0){
+            key.cancel();
+            client.close();
+            System.out.println("Deconnexion");
+            return;
+        }
         buffer.flip();
         String action = new String(buffer.array()).trim();
+
 
         handler.input(Handler.decoupage (action),client,buffer);
 
@@ -67,6 +75,7 @@ public class Server {
         if (new String(buffer.array()).trim().equals(POISON_PILL)) {
             client.close();
             System.out.println("Not accepting client messages anymore");
+            Set<SelectionKey> s = selector.keys();
         }
     }
 

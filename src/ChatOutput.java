@@ -13,6 +13,15 @@ public class ChatOutput implements ChatProtocol {
     public void sendPrivateMessage(SocketChannel socketChannel, ByteBuffer byteBuffer) throws IOException {
         socketChannel.write(byteBuffer);
     }
+    public void broadcast(TreeMap<String, SocketChannel> salonList, ByteBuffer byteBuffer) throws IOException {
+        salonList.forEach((x,y)-> {
+            try {
+                y.write(byteBuffer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
     public void sendRoomMessage(String name, ByteBuffer byteBuffer, TreeMap<String, ArrayList<SocketChannel>> salonList) throws IOException {
         ArrayList<SocketChannel> salon = salonList.get(name);
         if(salon==null){

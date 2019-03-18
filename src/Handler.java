@@ -67,6 +67,19 @@ public class Handler {
             case "MSGROOM" :
                 chatmodel.sendRoomMessage(words[1],byteBuffer,salonList);
                 break;
+            default:
+
+                //chatmodel.sendPrivateMessage(socketChannel,byteBuffer);
+                clientList.forEach((x,y)-> {
+                    try {
+                        System.out.println((new String(byteBuffer.array()).trim()));
+                        y.write(byteBuffer);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
 
         }
     }

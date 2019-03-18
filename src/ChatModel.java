@@ -47,7 +47,7 @@ public class ChatModel {
 
     public void leaveRoom(TreeMap<String, ArrayList<SocketChannel>> salonList, SocketChannel socketChannel, String name){
         ArrayList<SocketChannel> salon = salonList.get(name);
-        if(salon==null){
+        if(salon!=null){
             System.out.println("Room doesn't exist");
         }
         else{
@@ -57,5 +57,9 @@ public class ChatModel {
                 System.out.println("Salon supprimé");
             }
         }
+    }
+
+    public void broadcast(TreeMap<String, SocketChannel> salonList, ByteBuffer byteBuffer) throws IOException {
+        chatOutput.broadcast(salonList,byteBuffer);
     }
 }
